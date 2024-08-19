@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="form-container">
+    <div class="title">Login</div>
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email"  (keyup.enter)="login()"/>
+        <mat-error *ngIf="f['email'].errors && f['email'].errors['required']">
+          Email is required!
+        </mat-error>
+        <mat-error *ngIf="f['email'].errors && f['email'].errors['email']"
+          >Provide a valid email!</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" (keyup.enter)="login()"/>
+        <mat-error
+          *ngIf="f['password'].errors && f['password'].errors['required']"
+        >
+          Password is required!
+        </mat-error>
+        <mat-error
+          *ngIf="f['password'].errors && f['password'].errors['minlength']"
+        >
+          You have to include min 8 chatacters!
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <div class="buttons-container">
+      <button mat-button class="login-button" [disabled]="loginForm.invalid" (click)="login()">
+        Login
+      </button>
+      <p>or</p>
+      <button mat-button routerLink="/create-user">Register</button>
+    </div>
+  </div>
+</div>

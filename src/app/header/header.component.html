@@ -1,0 +1,6 @@
+<mat-toolbar color="primary">
+    <div>Stackoverflow template</div>
+    <div>
+        <button *ngIf="userService.user != undefined" mat-button (click)="logout()">Sign out</button>
+    </div>
+</mat-toolbar>

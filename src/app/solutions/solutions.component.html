@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="content-wrapper" *ngIf="questionObj != undefined">
+    <div class="title-container">
+      <button mat-icon-button routerLink="/home">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <p>You can answers questions</p>
+    </div>
+    <mat-card
+      class="question-card"
+      *ngFor="let solution of questionObj.solutions; let i = index"
+    >
+      <mat-card-content>
+        <div class="solution-container">
+          <div class="arrows-container">
+            <button
+              mat-icon-button
+              (click)="vote(i, 1)"
+              [class.colored-icon]="
+                solution.plus.indexOf(userService.user?.id) >= 0
+              "
+            >
+              <mat-icon>expand_less</mat-icon>
+            </button>
+            <span class="increasedecrease">{{
+              solution.plus.length - solution.minus.length
+            }}</span>
+            <button
+              mat-icon-button
+              (click)="vote(i, -1)"
+              [class.colored-icon]="
+                solution.minus.indexOf(userService.user?.id) >= 0
+              "
+            >
+              <mat-icon>expand_more</mat-icon>
+            </button>
+          </div>
+          <div class="data-container">
+            <p class="username">{{ solution.username }}</p>
+            <p>{{ solution.solution }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-form-field appearance="outline">
+      <textarea
+        [(ngModel)]="solutionText"
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="5"
+        placeholder="Your answer..."
+      ></textarea>
+    </mat-form-field>
+    <div class="new-post-actions-container">
+      <button
+        (click)="postSolution()"
+        mat-raised-button
+        class="post-button"
+        [disabled]="solutionText.trim() == ''"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
